@@ -18,6 +18,10 @@ button {
     color: #2A2B2A
 }
 
+input:invalid:required {
+    background-image: linear-gradient(to right, #C99DA3, #C6DDF0);
+  }
+
 table, td, th {  
     border: 2px solid #2A2B2A;
     text-align: center;
@@ -31,4 +35,8 @@ th, td {
 table {
     border-collapse: collapse;
     width: 100%
+}
+
+footer {
+    margin-top: 100px;
 }
