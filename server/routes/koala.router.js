@@ -46,14 +46,14 @@ koalaRouter.put('/:id', (req,res) => {
     console.log('req.body:', req.body);
   
     let idToUpdate = req.params.id;
-    let newTransfer = req.body.readyForTransfer;
+    let newReadyForTransfer = req.body.readyForTransfer;
 
     let sqlQuery = `
         UPDATE "koalas"
-            SET ""readyForTransfer""=$1
+            SET "readyForTransfer"=$1
             WHERE "id"=$2
     `
-    let sqlValues = [newTransfer, idToUpdate];
+    let sqlValues = [newReadyForTransfer, idToUpdate];
     pool.query(sqlQuery, sqlValues)
         .then( (dbRes) => {
             res.sendStatus(200);
@@ -65,25 +65,25 @@ koalaRouter.put('/:id', (req,res) => {
   })
 
 
-// DELETE
-// koalaRouter.delete('/:id', (req, res) => {
-//     console.log(req.params);
-//     let idToDelete = req.params.id;
+//DELETE
+koalaRouter.delete('/:id', (req, res) => {
+    console.log(req.params);
+    let idToDelete = req.params.id;
 
-//     let sqlQuery = `
-//         DELETE FROM "koalas"
-//             WHERE "id"=$1;
-//     `
-//     let sqlValues = [idToDelete];
-//     pool.query(sqlQuery, sqlValues)
-//     .then((dbRes) => {
-//         res.sendStatus(200);
-//     })
-//     .catch((dbErr) => {
-//         console.log('error in DELETE /:id', dbErr);
-//         res.sendStatus(500);
-//     })
-// })
+    let sqlQuery = `
+        DELETE FROM "koalas"
+            WHERE "id"=$1;
+    `
+    let sqlValues = [idToDelete];
+    pool.query(sqlQuery, sqlValues)
+    .then((dbRes) => {
+        res.sendStatus(200);
+    })
+    .catch((dbErr) => {
+        console.log('error in DELETE /:id', dbErr);
+        res.sendStatus(500);
+    })
+})
 
 
 module.exports = koalaRouter;

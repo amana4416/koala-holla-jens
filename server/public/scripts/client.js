@@ -52,10 +52,11 @@ function getKoalas(){
             <td> ${response[i].name} </td>
             <td> ${response[i].age}  </td>
             <td> ${response[i].gender} </td>
-            <td> ${response[i].ready_to_transfer} </td>
+            <td> ${response[i].readyForTransfer} </td>
             <td> ${response[i].notes} </td>
             <td><button data-id="${response[i].id}" class="transferButton">Ready for Transfer</button></td> 
-          </tr>
+          
+            </tr>
           `)
       } else {
         $('#viewKoalas').append(`
@@ -91,20 +92,20 @@ function saveKoala( newKoala ){
 
 function markKoalaAsReadyForTransfer() {
   console.log('koala is ready for transfer');
-  let koalaId = $(this).parent().data("id");
-  console.log(koalaId);
-  
-  // $.ajax({
-  //   method: "PUT",
-  //   url: `/koalas/${koalaId}`,
-  //   data: {
-  //     readyForTransfer: true,
-  //   },
-  // }).then((response) => {
-  //     getKoalas();
-  //   }).catch(function (error) {
-  //     console.log("Error in PUT /koalas on client side", error);
-  //   });
+  let idToUpdate = $(this).data().id;
+  console.log(idToUpdate);
+
+  $.ajax({
+    method: 'PUT',
+    url: `/koalas/${idToUpdate}`,
+    data: {
+      readyForTransfer: true,
+    },
+  }).then((response) => {
+      getKoalas();
+    }).catch(function (error) {
+      console.log("Error in PUT /koalas on client side", error);
+    });
 }
 
 
