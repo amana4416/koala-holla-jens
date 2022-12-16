@@ -10,7 +10,7 @@ $( document ).ready( function(){
   getKoalas();
 
   $('#viewKoalas').on('click', '.transferButton', markKoalaAsReadyForTransfer);
-
+  $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
 }); // end doc ready
 
 function setupClickListeners() {
@@ -55,7 +55,7 @@ function getKoalas(){
             <td> ${response[i].readyForTransfer} </td>
             <td> ${response[i].notes} </td>
             <td><button data-id="${response[i].id}" class="transferButton">Ready for Transfer</button></td> 
-          
+            <td><button data-id="${response[i].id}" class="deleteButton">Delete</button></td> 
             </tr>
           `)
       } else {
@@ -67,6 +67,7 @@ function getKoalas(){
             <td> ${response[i].readyForTransfer} </td>
             <td> ${response[i].notes} </td>
             <td></td>
+            <td><button data-id="${response[i].id}" class="deleteButton">Delete</button></td> 
           </tr>
           `)
         }
@@ -90,6 +91,8 @@ function saveKoala( newKoala ){
   })
 }
 
+//update koalas
+//put request
 function markKoalaAsReadyForTransfer() {
   console.log('koala is ready for transfer');
   let idToUpdate = $(this).data().id;
@@ -108,4 +111,18 @@ function markKoalaAsReadyForTransfer() {
     });
 }
 
+//delete koalas
+function deleteKoala() {
+  let idToDelete = $(this).data().id;
+  console.log(idToDelete);
+
+  $.ajax ({
+    method: 'DELETE',
+    url: `/koalas/${idToDelete}`
+  }).then ((res) => {
+    getKoalas();
+  }).catch((error) => {
+    console.log('error in DELETE /koalas on client side', error);
+  })
+}
 
