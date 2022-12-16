@@ -115,14 +115,22 @@ function markKoalaAsReadyForTransfer() {
 function deleteKoala() {
   let idToDelete = $(this).data().id;
   console.log(idToDelete);
-
-  $.ajax ({
-    method: 'DELETE',
-    url: `/koalas/${idToDelete}`
-  }).then ((res) => {
-    getKoalas();
-  }).catch((error) => {
-    console.log('error in DELETE /koalas on client side', error);
+  swal("Are you sure you want to delete?", {
+    title: "Delete Koala",
+    icon: "warning",
+    dangerMode: true,
+    buttons: true,
+  }).then((response) => {
+    if (response === true){
+      $.ajax ({
+        method: 'DELETE',
+        url: `/koalas/${idToDelete}`
+      }).then ((res) => {
+        getKoalas();
+      }).catch((error) => {
+        console.log('error in DELETE /koalas on client side', error);
+      })
+    }
   })
 }
 
