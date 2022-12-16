@@ -15,7 +15,8 @@ VALUES ( 'Scotty', 4, 'M', TRUE, 'Born in Guatemala'),
  ('Charlie', 9, 'M', TRUE, 'Favorite band is Nirvana'),
  ('Betsy', 4, 'F', TRUE, 'Has a pet iguana');
  
-SELECT * FROM "koalas";
+SELECT * FROM "koalas"
+  ORDER BY "id";
 
 INSERT INTO "koalas" ("name", "age", "gender", "readyForTransfer", "notes" )
   VALUES ($1, $2, $3, $4, $5);

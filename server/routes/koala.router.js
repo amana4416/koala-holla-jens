@@ -8,7 +8,8 @@ const pool = require('../modules/pool.js');
 // GET
 koalaRouter.get('/', (req, res) => {
     let sqlQuery = `
-    SELECT * FROM "koalas";
+    SELECT * FROM "koalas"
+        ORDER BY "id";
     `;
     pool.query(sqlQuery)
     .then((dbRes) => {
