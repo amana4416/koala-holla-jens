@@ -41,7 +41,7 @@ koalaRouter.post('/', (req, res) => {
 })
 
 // PUT
-koalaRouter.put('/koalas/:id', (req,res) => {
+koalaRouter.put('/:id', (req,res) => {
     console.log('req.params:', req.params);
     console.log('req.body:', req.body);
   
@@ -50,11 +50,40 @@ koalaRouter.put('/koalas/:id', (req,res) => {
 
     let sqlQuery = `
         UPDATE "koalas"
-            SET ""readyForTransfer""
+            SET ""readyForTransfer""=$1
+            WHERE "id"=$2
     `
+    let sqlValues = [newTransfer, idToUpdate];
+    pool.query(sqlQuery, sqlValues)
+        .then( (dbRes) => {
+            res.sendStatus(200);
+        })
+        .catch( (dbErr) => {
+            console.log('Error in PUT /:id')
+            res.sendStatus(500);
+        })
   })
 
 
 // DELETE
+// koalaRouter.delete('/:id', (req, res) => {
+//     console.log(req.params);
+//     let idToDelete = req.params.id;
+
+//     let sqlQuery = `
+//         DELETE FROM "koalas"
+//             WHERE "id"=$1;
+//     `
+//     let sqlValues = [idToDelete];
+//     pool.query(sqlQuery, sqlValues)
+//     .then((dbRes) => {
+//         res.sendStatus(200);
+//     })
+//     .catch((dbErr) => {
+//         console.log('error in DELETE /:id', dbErr);
+//         res.sendStatus(500);
+//     })
+// })
+
 
 module.exports = koalaRouter;

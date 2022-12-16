@@ -1,3 +1,5 @@
+// const { response } = require("express");
+
 console.log( 'js' );
 
 $( document ).ready( function(){
@@ -6,6 +8,8 @@ $( document ).ready( function(){
   setupClickListeners()
   // load existing koalas on page load
   getKoalas();
+
+  $('#viewKoalas').on('click', '.transferButton', markKoalaAsReadyForTransfer);
 
 }); // end doc ready
 
@@ -28,6 +32,7 @@ function setupClickListeners() {
     };
     // call saveKoala with the new obejct
     saveKoala( koalaToSend );
+
   }); 
 }
 
@@ -39,23 +44,35 @@ function getKoalas(){
     url: '/koalas'
   }).then( (response) => {
     $('#viewKoalas').empty();
-    
-    for (let koala of response) {
-      $('#viewKoalas').append(`
-        <tr data-id=${koala.id}>
-          <td>${koala.name}</td>
-          <td>${koala.age}</td>
-          <td>${koala.gender}</td>
-          <td>${koala.readyForTransfer}</td>
-          <td>${koala.notes}</td>
-        </tr> 
-      `);
-    }
-
+    for (let i = 0; i < response.length; i++) {
+      //only give the transfer button to koalas who are not ready
+      if (response[i].readyForTransfer === false) {
+        $('#viewKoalas').append(`
+          <tr>
+            <td> ${response[i].name} </td>
+            <td> ${response[i].age}  </td>
+            <td> ${response[i].gender} </td>
+            <td> ${response[i].ready_to_transfer} </td>
+            <td> ${response[i].notes} </td>
+            <td><button data-id="${response[i].id}" class="transferButton">Ready for Transfer</button></td> 
+          </tr>
+          `)
+      } else {
+        $('#viewKoalas').append(`
+          <tr>
+            <td> ${response[i].name} </td>
+            <td> ${response[i].age}  </td>
+            <td> ${response[i].gender} </td>
+            <td> ${response[i].readyForTransfer} </td>
+            <td> ${response[i].notes} </td>
+            <td></td>
+          </tr>
+          `)
+        }
+      }
   }).catch( (error) => {
-    console.log('Error in GET /koalas client side')
+    console.log('Error in GET /koalas client side', error)
   });
-  
 } // end getKoalas
 
 function saveKoala( newKoala ){
@@ -68,10 +85,26 @@ function saveKoala( newKoala ){
   }).then( (response) => {
     getKoalas();
   }).catch( (error) => {
-    console.log('Error in POST /koalas client side')
+    console.log('Error in POST /koalas client side', error)
   })
 }
 
 function markKoalaAsReadyForTransfer() {
-  console.log($(this).parent().data());
+  console.log('koala is ready for transfer');
+  let koalaId = $(this).parent().data("id");
+  console.log(koalaId);
+  
+  // $.ajax({
+  //   method: "PUT",
+  //   url: `/koalas/${koalaId}`,
+  //   data: {
+  //     readyForTransfer: true,
+  //   },
+  // }).then((response) => {
+  //     getKoalas();
+  //   }).catch(function (error) {
+  //     console.log("Error in PUT /koalas on client side", error);
+  //   });
 }
+
+
