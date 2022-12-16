@@ -98,7 +98,6 @@ function markKoalaAsReadyForTransfer() {
   console.log('koala is ready for transfer');
   let idToUpdate = $(this).data().id;
   console.log(idToUpdate);
-
   $.ajax({
     method: 'PUT',
     url: `/koalas/${idToUpdate}`,
@@ -129,4 +128,19 @@ function deleteKoala() {
 
 //function to mark koalas as not ready for transfer
 //using the same PUT route as earlier
-
+function dontTransferKoala() {
+  console.log('koala is no longer ready for transfer');
+  let idToUpdate = $(this).data().id;
+  console.log(idToUpdate);
+  $.ajax({
+    method: 'PUT',
+    url: `/koalas/${idToUpdate}`,
+    data: {
+      readyForTransfer: false,
+    },
+  }).then((response) => {
+      getKoalas();
+    }).catch(function (error) {
+      console.log("Error in PUT /koalas on client side", error);
+    });
+}
