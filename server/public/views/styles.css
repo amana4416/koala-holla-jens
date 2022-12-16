@@ -1,0 +1,34 @@
+header {
+    background-color: #2A2B2A;
+    color: #C6DDF0;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+}
+
+body {
+    background-color: #5E4955;
+    color: #C99DA3;
+}
+
+button {
+    background-color: #C6DDF0;
+    color: #2A2B2A
+}
+
+table, td, th {  
+    border: 2px solid #2A2B2A;
+    text-align: center;
+
+}
+  
+th, td {
+    padding: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%
+}

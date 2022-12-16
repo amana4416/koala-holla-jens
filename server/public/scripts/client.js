@@ -11,6 +11,7 @@ $( document ).ready( function(){
 
   $('#viewKoalas').on('click', '.transferButton', markKoalaAsReadyForTransfer);
   $('#viewKoalas').on('click', '.deleteButton', deleteKoala);
+  $('#viewKoalas').on('click', '.dontTransferButton', dontTransferKoala);
 }); // end doc ready
 
 function setupClickListeners() {
@@ -54,7 +55,7 @@ function getKoalas(){
             <td> ${response[i].gender} </td>
             <td> ${response[i].readyForTransfer} </td>
             <td> ${response[i].notes} </td>
-            <td><button data-id="${response[i].id}" class="transferButton">Ready for Transfer</button></td> 
+            <td><button data-id="${response[i].id}" class="transferButton">Ready for Transfer?</button></td> 
             <td><button data-id="${response[i].id}" class="deleteButton">Delete</button></td> 
             </tr>
           `)
@@ -66,7 +67,7 @@ function getKoalas(){
             <td> ${response[i].gender} </td>
             <td> ${response[i].readyForTransfer} </td>
             <td> ${response[i].notes} </td>
-            <td></td>
+            <td><button data-id="${response[i].id}" class="dontTransferButton">Not Ready for Transfer?</button></td> 
             <td><button data-id="${response[i].id}" class="deleteButton">Delete</button></td> 
           </tr>
           `)
@@ -125,4 +126,7 @@ function deleteKoala() {
     console.log('error in DELETE /koalas on client side', error);
   })
 }
+
+//function to mark koalas as not ready for transfer
+//using the same PUT route as earlier
 

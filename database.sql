@@ -12,7 +12,9 @@ VALUES ( 'Scotty', 4, 'M', TRUE, 'Born in Guatemala'),
  ('Jean', 5, 'F', TRUE, 'Allergic to lots of lava'), 
  ('Ororo',  7, 'F', FALSE, 'Loves listening to Paula (Abdul)'),
  ('Logan', 15, 'M', FALSE, 'Loves to sauna'),
- ('Charlie', 9, 'm', TRUE, 'Favorite band is Nirvana'),
+ ('Charlie', 9, 'M', TRUE, 'Favorite band is Nirvana'),
  ('Betsy', 4, 'F', TRUE, 'Has a pet iguana');
  
  SELECT * FROM "koalas";
+
+ 
