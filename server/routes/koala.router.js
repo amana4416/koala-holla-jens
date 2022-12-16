@@ -8,7 +8,7 @@ const pool = require('../modules/pool.js');
 // GET
 koalaRouter.get('/', (req, res) => {
     let sqlQuery = `
-    SELECT * FROM "koalas"
+    SELECT * FROM "koalas";
     `;
     pool.query(sqlQuery)
     .then((dbRes) => {
@@ -51,7 +51,7 @@ koalaRouter.put('/:id', (req,res) => {
     let sqlQuery = `
         UPDATE "koalas"
             SET "readyForTransfer"=$1
-            WHERE "id"=$2
+            WHERE "id"=$2;
     `
     let sqlValues = [newReadyForTransfer, idToUpdate];
     pool.query(sqlQuery, sqlValues)
